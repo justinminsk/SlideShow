@@ -175,9 +175,9 @@ ggplot()+
 
 \end{frame}
 
-\section{Top Ten Negtive Words, WordCloud}
+\section{WordCloud}
 \begin{frame}[allowframebreaks, fragile]
-  \frametitle{Top Ten Negtive Words, WordCloud}
+  \frametitle{WordCloud}
   
 <<>>=
 dracula_words <- dracula_words%>%
@@ -189,9 +189,9 @@ wordcloud(dracula_sent$word, dracula_sent$freq, min.freq = 5)
 
 \end{frame}
 
-\section{Top Ten Negtive Words, Comparison WordCloud}
+\section{Comparison WordCloud}
 \begin{frame}[allowframebreaks, fragile]
-  \frametitle{Top Ten Negtive Words, Comparison WordCloud}
+  \frametitle{Comparison WordCloud}
   
 <<>>=
 dracula_matrix <- acast(dracula_sent, word~sentiment, value.var = 'freq', fill = 0)
