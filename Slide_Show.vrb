@@ -1,15 +1,9 @@
-\frametitle{Comparison Bar Plot}
+\frametitle{Top Ten Negtive Words, Comparison WordCloud}
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{dracula_pos}\hlopt{$}\hlstd{sentiment} \hlkwb{<-} \hlstr{'postive'}
-\hlstd{dracula_neg}\hlopt{$}\hlstd{sentiment} \hlkwb{<-} \hlstr{'negative'}
-\hlstd{dracula_pos}\hlopt{$}\hlstd{word} \hlkwb{<-} \hlkwd{factor}\hlstd{(dracula_pos}\hlopt{$}\hlstd{word,}
-                           \hlkwc{level} \hlstd{= dracula_pos}\hlopt{$}\hlstd{word)}
-\hlstd{dracula_neg}\hlopt{$}\hlstd{word} \hlkwb{<-} \hlkwd{factor}\hlstd{(dracula_neg}\hlopt{$}\hlstd{word,}
-                           \hlkwc{level} \hlstd{= dracula_neg}\hlopt{$}\hlstd{word)}
-\hlstd{dracula_comp} \hlkwb{<-} \hlkwd{rbind}\hlstd{(dracula_neg, dracula_pos)}
+\hlstd{dracula_matrix} \hlkwb{<-} \hlkwd{acast}\hlstd{(dracula_sent, word}\hlopt{~}\hlstd{sentiment,} \hlkwc{value.var} \hlstd{=} \hlstr{'freq'}\hlstd{,} \hlkwc{fill} \hlstd{=} \hlnum{0}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -19,18 +13,10 @@
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlkwd{ggplot}\hlstd{()}\hlopt{+}
-  \hlkwd{geom_bar}\hlstd{(}\hlkwc{data} \hlstd{= dracula_comp,}
-           \hlkwd{aes}\hlstd{(}\hlkwc{x} \hlstd{= word,} \hlkwc{y} \hlstd{= count,}
-               \hlkwc{color} \hlstd{= sentiment,}
-               \hlkwc{fill} \hlstd{= sentiment),} \hlkwc{stat} \hlstd{=} \hlstr{'identity'}\hlstd{)}\hlopt{+}
-  \hlkwd{coord_flip}\hlstd{()}\hlopt{+}
-  \hlkwd{facet_wrap}\hlstd{(}\hlopt{~}\hlstd{sentiment,} \hlkwc{scales} \hlstd{=} \hlstr{'free_y'}\hlstd{)}\hlopt{+}
-  \hlkwd{scale_fill_manual}\hlstd{(}\hlkwc{values} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{'black'}\hlstd{,} \hlstr{'#ea6205'}\hlstd{))}\hlopt{+}
-  \hlkwd{scale_color_manual}\hlstd{(}\hlkwc{values} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{'#ea6205'}\hlstd{,} \hlstr{'black'}\hlstd{))}
+\hlkwd{comparison.cloud}\hlstd{(dracula_matrix,} \hlkwc{colors} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{'black'}\hlstd{,} \hlstr{'#ff7433'}\hlstd{))}
 \end{alltt}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-16-1}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-22-1}
 
 \end{knitrout}
 

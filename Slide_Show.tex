@@ -105,6 +105,30 @@
 \end{alltt}
 \end{kframe}
 \end{knitrout}
+      \item<6->
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hlstd{(wordcloud2)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+      \item<7->
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hlstd{(reshape2)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+      \item<8->
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hlstd{(wordcloud)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
     \end{itemize}
 \end{frame}
 
@@ -362,10 +386,60 @@
   \hlkwd{scale_color_manual}\hlstd{(}\hlkwc{values} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{'#ea6205'}\hlstd{,} \hlstr{'black'}\hlstd{))}
 \end{alltt}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-16-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-19-1} 
 
 \end{knitrout}
 
+\end{frame}
+
+\section{Top Ten Negtive Words, WordCloud}
+\begin{frame}[allowframebreaks, fragile]
+  \frametitle{Top Ten Negtive Words, WordCloud}
+  
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{dracula_words} \hlkwb{<-} \hlstd{dracula_words}\hlopt{%>%}
+  \hlkwd{group_by}\hlstd{(word)}\hlopt{%>%}
+  \hlkwd{summarise}\hlstd{(}\hlkwc{freq} \hlstd{=} \hlkwd{n}\hlstd{())}
+\hlstd{dracula_sent} \hlkwb{<-} \hlkwd{inner_join}\hlstd{(bing, dracula_words)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Joining, by = "{}word"{}}}\begin{alltt}
+\hlkwd{wordcloud}\hlstd{(dracula_sent}\hlopt{$}\hlstd{word, dracula_sent}\hlopt{$}\hlstd{freq,} \hlkwc{min.freq} \hlstd{=} \hlnum{5}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-20-1} 
+
+\end{knitrout}
+
+\end{frame}
+
+\section{Top Ten Negtive Words, Comparison WordCloud}
+\begin{frame}[allowframebreaks, fragile]
+  \frametitle{Top Ten Negtive Words, Comparison WordCloud}
+  
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{dracula_matrix} \hlkwb{<-} \hlkwd{acast}\hlstd{(dracula_sent, word}\hlopt{~}\hlstd{sentiment,} \hlkwc{value.var} \hlstd{=} \hlstr{'freq'}\hlstd{,} \hlkwc{fill} \hlstd{=} \hlnum{0}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+ 
+\framebreak
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{comparison.cloud}\hlstd{(dracula_matrix,} \hlkwc{colors} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{'black'}\hlstd{,} \hlstr{'#ff7433'}\hlstd{))}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-22-1} 
+
+\end{knitrout}
+ 
 \end{frame}
 
 \end{document}

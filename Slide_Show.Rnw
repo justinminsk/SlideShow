@@ -34,6 +34,18 @@ library(ggplot2)
 <<warning=FALSE,message=FALSE>>=
 library(stringr)
 @
+      \item<6->
+<<warning=FALSE,message=FALSE>>=
+library(wordcloud2)
+@
+      \item<7->
+<<warning=FALSE,message=FALSE>>=
+library(reshape2)
+@
+      \item<8->
+<<warning=FALSE,message=FALSE>>=
+library(wordcloud)
+@
     \end{itemize}
 \end{frame}
 
@@ -161,6 +173,36 @@ ggplot()+
   scale_color_manual(values = c('#ea6205', 'black'))
 @
 
+\end{frame}
+
+\section{Top Ten Negtive Words, WordCloud}
+\begin{frame}[allowframebreaks, fragile]
+  \frametitle{Top Ten Negtive Words, WordCloud}
+  
+<<>>=
+dracula_words <- dracula_words%>%
+  group_by(word)%>%
+  summarise(freq = n())
+dracula_sent <- inner_join(bing, dracula_words)
+wordcloud(dracula_sent$word, dracula_sent$freq, min.freq = 5)
+@
+
+\end{frame}
+
+\section{Top Ten Negtive Words, Comparison WordCloud}
+\begin{frame}[allowframebreaks, fragile]
+  \frametitle{Top Ten Negtive Words, Comparison WordCloud}
+  
+<<>>=
+dracula_matrix <- acast(dracula_sent, word~sentiment, value.var = 'freq', fill = 0)
+@
+ 
+\framebreak
+
+<<fig.height=5>>=
+comparison.cloud(dracula_matrix, colors = c('black', '#ff7433'))
+@
+ 
 \end{frame}
 
 \end{document}
